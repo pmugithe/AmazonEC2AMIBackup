@@ -1,62 +1,35 @@
 # AutomationOfAmazonEC2AMIBackup
 # Project Title
 
-A short description about the project and/or client.
+The main objective of this project is to manage the EC2 AMI backup for EC2 Instances using AWS lambda functions in Python. Creating a backup for each EC2 Instance and deleting the EC2 AMIs that are older than 30 days or more. Using Python and AWS Lambda Functions, the whole process is going to be self-triggered. When deletion is happened, using AWS SNS, a notification will be sent to the registered email address. This project uses technologies like AWS EC2, AWS SNS, AWS CloudWatch, and the programming language that will be used in this project is Python.
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+*1* Create an AWS account and set up an admin role.
+*2* Create a Lambda Function with the lambda function script in files.
+*3* Configure the instances and backup folders.
+*4* Trigger the Lambda Function when required.
 
 ### Prerequisites
 
 The things you need before installing the software.
 
-* You need this
-* And you need this
-* Oh, and don't forget this
+* You need an AWS account
+* You need Python 3+
+* You also need basic knowledge of scripting and AWS
 
-### Installation
-
-A step by step guide that will tell you how to get the development environment up and running.
-
-```
-$ First step
-$ Another step
-$ Final step
-```
 
 ## Usage
 
 A few examples of useful commands and/or tasks.
 
-```
-$ First example
-$ Second example
-$ And keep this in mind
-```
+I have attached image files to help you with commands and workflows.
 
-## Deployment
-
-Additional notes on how to deploy this on a live or release system. Explaining the most important branches, what pipelines they trigger and how to update the database (if anything special).
-
-### Server
-
-* Live:
-* Release:
-* Development:
 
 ### Branches
 
 * Master:
 * Feature:
 * Bugfix:
-* etc...
-
-## Additional Documentation and Acknowledgments
-
-* Project folder on server:
-* Confluence link:
-* Asana board:
 * etc...
 
 
