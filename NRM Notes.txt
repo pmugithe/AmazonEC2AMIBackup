@@ -1,0 +1,148 @@
+Network Resource Management as a Database Probelem.
+==============
+
+Abstract: 
+
+Database Abstraction for network resource management.
+DB Provides simple constructs for supporting the complex resource mangement tasks,	 1:such as transactions to support bw reservations on multiple links
+2:virtual tables for restricting the view of the tenants in the cloud environment.
+
+===========
+
+:>NRM is a important component of a cloud environment.
+
+:>Several studies have shown that, application performance is tied with underlying resource management policy as well as mechanism.
+
+:>There has been a several proposals to improve the NRM including the protcols ExpressPass18, HPCC etc..
+:> There is also a resource management proposals for cloud tenants. ex virtual cluster.
+
+:>Despite all these proposals, a new change in datacenter or topology leads to change the NRM policies.
+
+:>Proposing a new CENTRALIZED APPROACH TO  DC NETWORK RESOURCE MANGEMENT. just like SDN.
+:>logically centralized NRM without compromising on the performance.
+
+:> FastPass and Jupiter have the same logically centralized NRM but with limited settings and scale.
+
+:>To adapt to any scale, prposing a new Reource Allocation Database (RAD), which records every resource allocation decision.
+
+:>Uisng variour database constrcuts such as transactions, views, and consistency modesl, we can easily support many complex NRM actions.
+
+:>For Examples, a cloud operator can provide restricted access to tenant through DB views.
+
+:>DB Abstraction is super enticing but it comes with many challenges. which is tight interactions.
+
+==============
+
+BW Reservation:
+	One of the important block in NRM is the BW Reservations. The ability to reserve a bw is fundamental to provinding a guaranteed service to applications.
+
+:>Several protocols like RVSP, Baarat, and D3 use end-to-end bandwidth reservation between nodes.
+
+:>But this is a challenging task, because all the routers need to agree on same allocate path.
+	To implement this technique between routers, it requires a two complex process
+	1.Routers need to do a temporary reservation in forward direction
+	2. And this temporary reservation is confirmed when all routers on the path confirm the availbiloty of the bandwidth.
+
+:>This process is complicated by loss of confirmation message.
+
+:> Because of tight coupling mechanism, this technique needs to re-implemented by NRM protocols, which eventually makes brittle and complex.
+
+:>This BW Reservation is a perfect fit for DB Abstractions. 
+ :::>do entire reservation if BW is available or else Rollback.
+
+================
+
+A popular resoruce management use case in recent times is providing cloud tenants with guarantedd virtual toplogies.
+
+:> IN this case, the cloud provides enforces these virtual topologies on the underlying physical toplogies, using optimzed mechanisms in the hypervisor.
+
+:>and tenants can use their mechanism in the virtual toplogies without revealing their policies to the cloud operator
+
+:> But this is impossible in today's world because of tight coupling between policy and mechanism. cos cloud operator needs to know the policy to implement the mechanism or tenants needs to implement it's own mechanism to support the policy.
+
+
+
+:>>The above scenari is perfect fit for DB views. Helps in achieving Data Independence in DB System.
+
+==================
+
+Goal is to design a system that can do task without degrading the performance.
+:>RAD:
+	Gets topology and traffic from outside source(made readily available by centralized SDN)
+:>Using RAD we can use high level Resource allocations abstractions and policies.
+
+:>Main challeng is to ensure scalibility without degrading the performance of RAD.
+
+:>RESOURCE ALLOCATION ABSTRACTIONS::::
+ AT High level RAD needs to record three key things:	
+	1.Resource (Link)
+	2.Consumer (Flow)
+	3.Resource allocation decision(BW Allocation)
+
+:>At lowest level, Caputres information at low level tables that are closely tied to data plane. and
+
+:> High level data plane to support various resource allocation policies.
+
+:>Low level captures data related to three things that are directly related to data plane.
+
+:>Specifiying resource allocation at lowest level provides the most control so that we can support the high level abstractions.
+
+::::Policy Specs:::
+
+:>It works on top of abstractions and can access the low and high level tables based on requirement and event driven.
+
+:>SQL is used for this work cause it supports rich set of constructs and helps in event driven execution because of triggers.
+
+:>For example
+	 Fair Sharing and Flow SCheduling
+
+:>RAD Implements fair share policu using big-switch abstraction.
+
+:>Upon flow arrival/departure rates are computed against downlink.
+show in Picture Below.
+
+====
+
+
+Network Aware Sharding and Replication.
+--------------
+
+Centralized database is prone to two key challenges.
+Scalbility >> Millions of requests
+Performance >> for short flows server maybe costly
+
+:>Sharding and Replication are two techniques in database to alleviate these problems.
+
+:>Bottom Up Sharding= To achieve sharding, we exploit tree based structure of typical data center topology.
+ :>we Divide the path into one from source to root of tree and destination to root of the treee.
+:>For each half, respective node is responsible to contat respective database replica.
+
+:>the above approach is faciliated by use of replication.
+:>
+REPLICATION:: Like Inheritance.
+
+Aggr parent and tor children.
+==============================
+
+
+:>DATA PLANE.
+
+High level design of data plane focussing on two things:
+	1.Resource parameters are enforced in data plane.
+	2.Enabling data plane to locaaly react to certain events.
+
+Resource Parameters:	
+	Choosing a small number of params that can cover wide range of policies. and these are connected to resource management plane.
+
+	Observed that providing support for "rate limiting", "prioritization", and "weights" in data plane can cover a large set of policies.
+
+================
+
+RAD CONGESTION CONTROL.
+RAD decouples congestion control policy from mechanism, for different policies it translates the requests to suitable rates and enforces these rates in data plane.
+
+
+
+
+
+
