@@ -9,11 +9,8 @@ This project demonstrates how to automate Amazon Machine Image (AMI) backups for
 - [Prerequisites](#prerequisites)
 - [Architecture](#architecture)
 - [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Monitoring and Alerting](#monitoring-and-alerting)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Prerequisites
 
@@ -31,3 +28,17 @@ Before setting up the AMI backup solution, make sure you have the following prer
 The architecture of this solution involves the following components:
 - EC2 Instances: Your Amazon Elastic Compute Cloud instances running your applications.
 -
+## Installation
+```
+git clone https://github.com/PradipMugithe/AutomationOfAmazonEC2AMIBackup.git
+cd ec2-ami-backup
+Change the variable for your requirement: BACKUP_RETENTION_DAYS, EC2_INSTANCE_TAGS
+
+```
+
+## Contributing
+-
+-
+-
+
+
