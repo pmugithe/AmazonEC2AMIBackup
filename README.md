@@ -25,7 +25,8 @@ Before setting up the AMI backup solution, make sure you have the following prer
 
 ## Architecture
 
-![Architecture Diagram](architecture-diagram.png)
+![Architecture Diagram]()![AWS Backup drawio](https://github.com/PradipMugithe/AutomationOfAmazonEC2AMIBackup/assets/78589162/2e5a38f2-8b95-4383-8d4e-6f40fcc1ccb7)
+
 
 The architecture of this solution involves the following components:
 - EC2 Instances: Your Amazon Elastic Compute Cloud instances running your applications.
